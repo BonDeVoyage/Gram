@@ -1,0 +1,26 @@
+.PreviewContainer {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+}
+
+.leftPreview {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    align-self: start;
+}
+
+.titleAndLm {
+    display: flex;
+    flex-direction: column;
+}
+
+.messageDetail {
+    display: flex;
+    flex-direction: column;
+    align-self: end;
+    margin-left: auto;
+}
