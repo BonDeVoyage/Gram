@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import UserService from "../service/UserService";
 import ImageUploader from 'react-images-upload';
+import "../styles/register.css"
 
 export default class Register extends Component {
     constructor(props) {
@@ -26,33 +27,28 @@ export default class Register extends Component {
 		this.setState({
 			avatar: picture 
 		});
-		console.log("Picture uploaded");
 	}
 
     onUsernameChangeHandler(e){
         this.setState({
             username: e.target.value
         })
-        console.log("username change - " + this.state.username);
     }
     onNameChangeHandler(e){
         this.setState({
             name: e.target.value
         })
-        console.log("name change - " + this.state.name);
     }
     onSurnameChangeHandler(e){
         this.setState({
             surname: e.target.value
         })
-        console.log("surname change - " + this.state.surname);
     }
 
     onPasswordChangeHandler(e){
         this.setState({
             password: e.target.value
         })
-        console.log("password change - " + this.state.password);
     }
 
     onSaveUserClick(){
@@ -77,78 +73,73 @@ export default class Register extends Component {
 
 
     render() {
-        return (
-            <div className="container mt-4">
-                <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <h3 className="text-center">Sign In</h3>
-                        <div className="card-body flex-column align-items-start">
-                            <form>
-								<div className="form-group">
-									<ImageUploader
-										withIcon = {false}
-										buttonText='Choose Avatar'
-										onChange = {this.onAvatarDropHandler}
-										singleImage = {true}
-										withLabel = {false}
-										withPreview = {true}
-										name="avatar"
-									/>
-								</div>
-                                
-								<div className="form-group">
-                                    <label>Username:</label>
-                                    <br/>
-                                    <input
-                                        className="w-75"
-                                        name="username"
-                                        onChange={this.onUsernameChangeHandler}
-                                        placeholder="Enter Username"
-                                        // value={this.state.firstName}
-                                    />
-                                </div>
+        return ( 
+            <div className="card-body backgroundImage h-100">
+                <div className="row h-100 justify-content-center align-items-center">
+					<div className="w-25 p-0 container-fluid">
+						<form className="registerForm my-auto p-3 text-center">
+							<div className="form-group m-3">
+								<label>Username</label>
+								<br/>
+								<input
+									className="w-75 p-2"
+									name="username"
+									onChange={this.onUsernameChangeHandler}
+								/>
+							</div>
 
-                                <div className="form-group">
-                                    <label>Name:</label>
-                                    <br/>
-                                    <input
-                                        className="w-75"
-                                        name="Name"
-                                        onChange={this.onNameChangeHandler}
-                                        placeholder="Enter Name"
-                                        // value={this.state.lastName}
-                                    />
-                                </div>
+							<div className="form-group m-3">
+								<label>Name</label>
+								<br/>
+								<input
+									className="w-75 p-2"
+									name="Name"
+									onChange={this.onNameChangeHandler}
+								/>
+							</div>
 
-                                <div className="form-group">
-                                    <label>Surname:</label>
-                                    <br/>
-                                    <input
-                                        className="w-75"
-                                        name="Surname"
-                                        onChange={this.onSurnameChangeHandler}
-                                        placeholder="Enter Surname"
-                                        // value={this.state.email}
-                                    />
-                                </div>
+							<div className="form-group m-3">
+								<label>Surname</label>
+								<br/>
+								<input
+									className="w-75 p-2"
+									name="Surname"
+									onChange={this.onSurnameChangeHandler}
+								/>
+							</div>
 
-                                <div className="form-group">
-                                    <label>Password:</label>
-                                    <br/>
-                                    <input
-                                        className="w-75"
-                                        name="password"
-                                        onChange={this.onPasswordChangeHandler}
-                                        placeholder="Enter Password"
-                                        // value={this.state.email}
-                                    />
-                                </div>
-                            </form>
-
-                            <button type className="btn btn-success mr-3 mt-2 " onClick={this.onSaveUserClick} >Save</button>
-                            <button className="btn btn-danger mt-2" onClick={this.onCancelClick} >Cancel</button>
-                        </div>
-                    </div>
+							<div className="form-group m-3">
+								<label>Password</label>
+								<br/>
+								<input
+									className="w-75 p-2"
+									name="password"
+									onChange={this.onPasswordChangeHandler}
+								/>
+							</div>
+							
+							<div className="form-group m-0">
+								<ImageUploader
+									withIcon = {false}
+									buttonText='Choose Avatar'
+									onChange = {this.onAvatarDropHandler}
+									singleImage = {true}
+									withLabel = {false}
+									withPreview = {true}
+									name="avatar"
+									className="container-fluid text-center w-75 avatarForm"
+								/>
+							</div>
+							
+							<div className="form-group px-3 pt-3 mb-0">
+								<button type className="btn button w-75" onClick={this.onSaveUserClick} >Save</button>
+							</div>
+							<div className="form-group m-0 p-0">
+								<a className="signIn" href="/login">Already registered? Sign in!</a>
+							</div>
+						</form>
+						
+					</div>
                 </div>
             </div>
         );

@@ -1,0 +1,69 @@
+.backgroundImage{
+	background-image: url("../images/registerBackground.gif");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.registerForm{
+	background-color: #36393e;
+	border-radius: 10px;
+}
+
+.registerForm input{
+	background-color: #282b30;
+	border-width:1px;
+	border-color:#1e2124;
+	font-size:12px;
+	color:white;
+	font-family: cursive;
+}
+
+.registerForm label{
+	color:white;
+	font-family: 'Press Start 2P', cursive;
+	text-align: left;
+	width: 74%;
+}
+
+.fileContainer{
+	background-color: #36393e !important; 
+	box-shadow:none;
+	position: relative;
+	padding: 0 0;
+	display: flex;
+	align-items: left;
+	justify-content: center;
+	flex-direction: column;
+	margin: 0 0;
+}
+
+.button {
+	background-color: #7289da;
+	font-family: 'Press Start 2P', cursive;
+	color:white;
+}
+
+.chooseFileButton{
+	font-family: 'Press Start 2P', cursive;
+	color:white;	
+}
+
+.fileContainer .uploadPictureContainer{
+	padding: 0 0;
+	width: 50%;
+	margin: 5%;
+	background: #edf2f6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: inherit;
+	box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.1);
+	border: 1px solid #d0dbe4;
+	position: relative;
+}
+
+.signIn{
+	font-family: 'Press Start 2P', cursive;
+	color:blue;
+	font-size: 10px;	
+}
