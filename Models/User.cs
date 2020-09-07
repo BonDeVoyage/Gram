@@ -10,8 +10,8 @@ namespace messengerV2.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public byte[] Avatar { get; set; }
-        public string Username {    get; set; }
+        public string Avatar { get; set; }
+        public string Username { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         [JsonIgnore]

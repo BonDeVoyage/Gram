@@ -40,13 +40,13 @@ namespace messengerV2.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
-            if (await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username) == null)
+             if (await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username) == null)
             {
                 user.Password = BC.HashPassword(user.Password);  
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 await Authenticate(user.Username);
-                return Content(user.Username + " " + user.Password); //redirect
+                return Json(user);
             }
             return Json(ModelState);
         }
