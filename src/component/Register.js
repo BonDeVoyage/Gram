@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import UserService from "../service/UserService";
+import ImageUploader from 'react-images-upload';
 
 export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
+			avatar: null,
             username: " ",
             name: " ",
             surname: " ",
@@ -17,9 +19,15 @@ export default class Register extends Component {
         this.onSurnameChangeHandler = this.onSurnameChangeHandler.bind(this);
         this.onPasswordChangeHandler = this.onPasswordChangeHandler.bind(this);
         this.onSaveUserClick = this.onSaveUserClick.bind(this);
-
-
+		this.onAvatarDropHandler = this.onAvatarDropHandler.bind(this);
     }
+
+	onAvatarDropHandler(picture){
+		this.setState({
+			avatar: picture 
+		});
+		console.log("Picture uploaded");
+	}
 
     onUsernameChangeHandler(e){
         this.setState({
@@ -48,16 +56,23 @@ export default class Register extends Component {
     }
 
     onSaveUserClick(){
-        const user = {
-            username: this.state.username,
-            name: this.state.name,
-            surname: this.state.surname,
-            password: this.state.password
-        }
-        UserService.createUser(user).then(r => {
-            console.log(user)
-            this.props.history.push("/login");
-        });
+		var reader = new FileReader();
+		reader.readAsDataURL(this.state.avatar[0]);
+		console.log(reader.result);
+		reader.onloadend = function ()
+		{
+			const user = {
+				username: this.state.username,
+				name: this.state.name,
+				surname: this.state.surname,
+				password: this.state.password,
+				avatar: reader.result
+			}
+			UserService.createUser(user).then(r => {
+				console.log(user)
+				this.props.history.push("/login");
+			});
+		}.bind(this);
     }
 
 
@@ -69,8 +84,19 @@ export default class Register extends Component {
                         <h3 className="text-center">Sign In</h3>
                         <div className="card-body flex-column align-items-start">
                             <form>
-
-                                <div className="form-group">
+								<div className="form-group">
+									<ImageUploader
+										withIcon = {false}
+										buttonText='Choose Avatar'
+										onChange = {this.onAvatarDropHandler}
+										singleImage = {true}
+										withLabel = {false}
+										withPreview = {true}
+										name="avatar"
+									/>
+								</div>
+                                
+								<div className="form-group">
                                     <label>Username:</label>
                                     <br/>
                                     <input
