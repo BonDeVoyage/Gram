@@ -2,7 +2,6 @@
 using messengerV2.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace messengerV2.Controllers

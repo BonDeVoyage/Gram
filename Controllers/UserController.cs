@@ -42,8 +42,7 @@ namespace messengerV2.Controllers
         {
             if (await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username) == null)
             {
-
-                user.Password = BC.HashPassword(user.Password);
+                user.Password = BC.HashPassword(user.Password);  
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 await Authenticate(user.Username);
