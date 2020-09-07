@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import UserService from "../service/UserService";
+import './LoginStyles.css'
 
 export default class Login extends Component {
 
@@ -43,44 +44,46 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="container mt-4">
-                <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <h3 className="text-center">Login</h3>
-                        <div className="card-body flex-column align-items-start">
-                            <form>
 
-                                <div className="form-group">
-                                    <label>Username:</label>
+            <div className="container-fluid h-100 p-0 BackgroundGif">
+                <div className=" row h-100 justify-content-center align-items-center">
+                    <div className="card w-50 container-fluid LoginForm">
+                        <div className="card-body flex-column align-items-start ">
+                            <form className="my-auto text-center">
+                              <div className="form-group">
+                                <label>Username:</label>
                                     <br/>
                                     <input
                                         className="w-75"
                                         name="username"
                                         onChange={this.onUsernameChangeHandler}
-                                        placeholder="Enter Username"
+
                                         // value={this.state.firstName}
                                     />
                                 </div>
-
                                 <div className="form-group">
-                                    <label>Password:</label>
+                                  <label>Password:</label>
                                     <br/>
                                     <input
                                         className="w-75"
                                         name="password"
                                         onChange={this.onPasswordChangeHandler}
-                                        placeholder="Enter Password"
+
                                         // value={this.state.email}
                                     />
                                 </div>
                             </form>
-
-                            <button type className="btn btn-success mr-3 mt-2 " onClick={this.onLoginUserClick} >Login</button>
-                            <button className="btn btn-danger mt-2" onClick={this.onCancelClick} >Cancel</button>
+                            <div className=" row h-100  justify-content-center align-items-center">
+                              <button type className="btn" onClick={this.onLoginUserClick} >Login</button>
+                            </div>
+                            <div className="form-group m-0 p-0 text-center">
+                              <a className="signIn" href="/login">New to Gram? Sign up!</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
         );
     }
