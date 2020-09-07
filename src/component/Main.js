@@ -4,9 +4,10 @@ import RightPanel from "./RightPanel";
 import './Main.css'
 class Main extends Component {
     render() {
+        let user = this.props.location.state.user
         return (
             <div className="main">
-                <LeftPanel/>
+                <LeftPanel userInfo = {user}/>
                 {/*<RightPanel/>*/}
             </div>
         );
