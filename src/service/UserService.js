@@ -8,6 +8,12 @@ class UserService {
     getUserById(id){
         return axios.get(API_USER_URL + "/" + id);
     }
+	
+	getCurrentUser(){
+		return axios.get(API_USER_URL + "/GetCurrentUser",{
+			withCredentials: true
+		});
+	}
 
     createUser(user){
         return axios.post(API_USER_URL + "/register",user,{
@@ -21,7 +27,8 @@ class UserService {
         return axios.post(API_USER_URL + "/login",user,{
             headers: {
                 'Content-type': 'application/json'
-            }
+            },
+			withCredentials: true
         })
     }
 }
