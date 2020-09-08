@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import UserService from "../service/UserService";
-import './LoginStyles.css'
+import '../styles/LoginStyles.css'
 
 export default class Login extends Component {
 
@@ -47,7 +47,7 @@ export default class Login extends Component {
 
             <div className="container-fluid h-100 p-0 BackgroundGif">
                 <div className=" row h-100 justify-content-center align-items-center">
-                    <div className="card w-50 container-fluid LoginForm">
+                    <div className="card w-25 container-fluid LoginForm">
                         <div className="card-body flex-column align-items-start ">
                             <form className="my-auto text-center">
                               <div className="form-group">

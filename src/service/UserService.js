@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 const API_USER_URL = "https://localhost:5001/api/user"
 
 class UserService {
@@ -11,6 +10,12 @@ class UserService {
 	
 	getCurrentUser(){
 		return axios.get(API_USER_URL + "/GetCurrentUser",{
+			withCredentials: true
+		});
+	}
+	
+	getCurrentUserConversations(){
+		return axios.get(API_USER_URL + "/GetCurrentUserConversations",{
 			withCredentials: true
 		});
 	}
