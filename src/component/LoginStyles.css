@@ -1,0 +1,41 @@
+.BackgroundGif{
+    background-image:url('../images/Background.gif');
+    background-size:100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height:98%;
+    width:100%;
+}
+
+.LoginForm{
+  background-color: #36393e;
+  border-radius: 30px;
+}
+
+.LoginForm input{
+  background-color: #282b30;
+  border-width:1px;
+  border-color:#1e2124;
+  font-size:16px;
+  color:white;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.LoginForm label{
+  color:white;
+  font-family: 'Press Start 2P', cursive;
+  text-align: left;
+  width: 74%;
+}
+.LoginForm button{
+  font-family: 'Press Start 2P', cursive;
+  background-color: #7289da;
+  color:white;
+}
+.signIn{
+  font-family: 'Press Start 2P', cursive;
+  color:blue;
+  font-size: 10px;
+}
