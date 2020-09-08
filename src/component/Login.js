@@ -72,7 +72,7 @@ export default class Login extends Component {
 									<button type="submit" className="btn">Login</button>
 								</div>
 								<div className="form-group m-0 p-0 text-center">
-									<a className="signIn" href="/login">New to Gram? Sign up!</a>
+									<a className="signIn" href="/register">New to Gram? Sign up!</a>
 								</div>
                             </form>
                         </div>
