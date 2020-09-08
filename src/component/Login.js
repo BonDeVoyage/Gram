@@ -39,7 +39,7 @@ export default class Login extends Component {
         }
         UserService.loginUser(user).then(res => {
         })
-        this.props.history.push()
+        this.props.history.push("/");
     }
 
     render() {
@@ -49,7 +49,7 @@ export default class Login extends Component {
                 <div className=" row h-100 justify-content-center align-items-center">
                     <div className="card w-25 container-fluid LoginForm">
                         <div className="card-body flex-column align-items-start ">
-                            <form className="my-auto text-center">
+                            <form onSubmit={this.onLoginUserClick} className="my-auto text-center">
                               <div className="form-group">
                                 <label>Username:</label>
                                     <br/>
@@ -57,8 +57,6 @@ export default class Login extends Component {
                                         className="w-75"
                                         name="username"
                                         onChange={this.onUsernameChangeHandler}
-
-                                        // value={this.state.firstName}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -68,17 +66,15 @@ export default class Login extends Component {
                                         className="w-75"
                                         name="password"
                                         onChange={this.onPasswordChangeHandler}
-
-                                        // value={this.state.email}
                                     />
                                 </div>
+			                    <div className=" row h-100  justify-content-center align-items-center">
+									<button type="submit" className="btn">Login</button>
+								</div>
+								<div className="form-group m-0 p-0 text-center">
+									<a className="signIn" href="/login">New to Gram? Sign up!</a>
+								</div>
                             </form>
-                            <div className=" row h-100  justify-content-center align-items-center">
-                              <button type className="btn" onClick={this.onLoginUserClick} >Login</button>
-                            </div>
-                            <div className="form-group m-0 p-0 text-center">
-                              <a className="signIn" href="/login">New to Gram? Sign up!</a>
-                            </div>
                         </div>
                     </div>
                 </div>

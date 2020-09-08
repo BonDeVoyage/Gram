@@ -51,10 +51,10 @@ export default class Register extends Component {
         })
     }
 
-    onSaveUserClick(){
+    onSaveUserClick(e){
+		e.preventDefault();
 		var reader = new FileReader();
 		reader.readAsDataURL(this.state.avatar[0]);
-		console.log(reader.result);
 		reader.onloadend = function ()
 		{
 			const user = {
@@ -77,7 +77,7 @@ export default class Register extends Component {
             <div className="card-body backgroundImage h-100">
                 <div className="row h-100 justify-content-center align-items-center">
 					<div className="w-25 p-0 container-fluid">
-						<form className="registerForm my-auto p-3 text-center">
+						<form onSubmit={this.onSaveUserClick} className="registerForm my-auto p-3 text-center">
 							<div className="form-group m-3">
 								<label>Username</label>
 								<br/>
@@ -132,7 +132,7 @@ export default class Register extends Component {
 							</div>
 							
 							<div className="form-group px-3 pt-3 mb-0">
-								<button type className="btn button w-75" onClick={this.onSaveUserClick} >Save</button>
+								<button type="submit" className="btn button w-75">Save</button>
 							</div>
 							<div className="form-group m-0 p-0">
 								<a className="signIn" href="/login">Already registered? Sign in!</a>
