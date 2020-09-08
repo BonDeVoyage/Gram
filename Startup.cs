@@ -27,7 +27,7 @@ namespace messengerV2
             services.AddSignalR();
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
             services.AddDbContext<AppContext>(options => options.UseSqlServer(Config.GetConnectionString("DefaultConnection")));
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login"));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddReact();
@@ -47,6 +47,7 @@ namespace messengerV2
                 builder.AllowAnyOrigin();
                 builder.AllowAnyHeader();
                 builder.AllowAnyMethod();
+                builder.WithOrigins("https://localhost:3000").AllowCredentials(); //дозволити куки
             });
             app.UseAuthentication();
             app.UseAuthorization();

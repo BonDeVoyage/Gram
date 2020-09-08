@@ -30,7 +30,7 @@ namespace messengerV2.Controllers
             if (user != null && BC.Verify(user.Password, _user.Password))
             {
                 await Authenticate(user.Username);
-                return Json("good");
+                return Json(_user);
             }
             ModelState.AddModelError("", "Username or password is not correct");
             return Json(ModelState);
@@ -40,13 +40,12 @@ namespace messengerV2.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
-             if (await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username) == null)
+            if (await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username) == null)
             {
                 user.Password = BC.HashPassword(user.Password);  
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
-                await Authenticate(user.Username);
-                return Json(user);
+                await Authenticate(user.Username);      
             }
             return Json(ModelState);
         }
@@ -55,7 +54,7 @@ namespace messengerV2.Controllers
         public async Task<IActionResult> Show(int Id)
         {
             User user = await _context.Users.FirstOrDefaultAsync(u => u.Id == Id);
-            if (Id == user.Id) await _context.Users.Include(user => user.Conversations).ToListAsync();
+            await _context.Users.Include(user => user.Conversations).ToListAsync();
             return Json(user);
         }
         private async Task Authenticate(string UserName)
@@ -73,5 +72,13 @@ namespace messengerV2.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var username = User.Identity.Name;
+            return Json(await _context.Users.FirstOrDefaultAsync(u => u.Username == username));
+        }
     }
 }
