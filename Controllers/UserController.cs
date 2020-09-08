@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace messengerV2.Controllers
 {
@@ -32,8 +33,11 @@ namespace messengerV2.Controllers
                 await Authenticate(user.Username);
                 return Json(_user);
             }
-            ModelState.AddModelError("", "Username or password is not correct");
-            return Json(ModelState);
+            else
+            {
+                ModelState.AddModelError("", "Username or password is not correct");
+                return Json(ModelState);
+            }
         }
 
         [HttpPost]
@@ -53,9 +57,7 @@ namespace messengerV2.Controllers
         [Route("{Id:int}")]
         public async Task<IActionResult> Show(int Id)
         {
-            User user = await _context.Users.FirstOrDefaultAsync(u => u.Id == Id);
-            await _context.Users.Include(user => user.Conversations).ToListAsync();
-            return Json(user);
+            return Json(await _context.Users.FirstOrDefaultAsync(u => u.Id == Id));
         }
         private async Task Authenticate(string UserName)
         {
@@ -79,6 +81,17 @@ namespace messengerV2.Controllers
         {
             var username = User.Identity.Name;
             return Json(await _context.Users.FirstOrDefaultAsync(u => u.Username == username));
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUserConversations()
+        {
+            List<User> list = _context.Users.Include(u => u.Conversations).ToList();
+            var username = User.Identity.Name; 
+            return Json(list.FirstOrDefault(u => u.Username == username).Conversations.ToList());
+
         }
     }
 }
