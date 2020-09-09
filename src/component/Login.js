@@ -32,14 +32,16 @@ export default class Login extends Component {
     }
 
 
-    onLoginUserClick(){
+    onLoginUserClick(e){
+		e.preventDefault();
         let user = {
             username: this.state.username,
             password: this.state.password
         }
         UserService.loginUser(user).then(res => {
-        })
-        this.props.history.push("/");
+			this.props.history.push("/");
+		});
+					
     }
 
     render() {

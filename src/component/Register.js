@@ -7,7 +7,7 @@ export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-			avatar: null,
+			avatar: [],
             username: " ",
             name: " ",
             surname: " ",
@@ -50,9 +50,10 @@ export default class Register extends Component {
             password: e.target.value
         })
     }
-
+	
     onSaveUserClick(e){
 		e.preventDefault();
+		if(!this.state.avatar.length)	this.state.avatar.push(new Blob())
 		var reader = new FileReader();
 		reader.readAsDataURL(this.state.avatar[0]);
 		reader.onloadend = function ()
@@ -65,7 +66,6 @@ export default class Register extends Component {
 				avatar: reader.result
 			}
 			UserService.createUser(user).then(r => {
-				console.log(user)
 				this.props.history.push("/login");
 			});
 		}.bind(this);
