@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
 import UserService from "../service/UserService"
-import './Main.css'
+import Header from "./Header"
+import '../styles/Main.css'
 
 class Main extends Component {
 	
@@ -20,9 +21,16 @@ class Main extends Component {
 	
     render() {
         return (
-			<div className="main">
-                <LeftPanel/>
-                {/*<RightPanel/>*/}
+			<div className="container-fluid flex-column h-100 p-0 main">
+				<div className="row m-0 justify-content-center">
+					<Header />
+				</div>
+				<div className="row m-0 h-100 justify-content-center">
+					<div className="w-75 d-flex h-100">
+						<LeftPanel/>
+						<RightPanel/>
+					</div>
+				</div>
             </div>
         );
     }

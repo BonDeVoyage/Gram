@@ -1,0 +1,9 @@
+.msgbackground{
+	background-image: url("../images/chatbox.png");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+h6{
+	font-family: 'Press Start 2P', cursive;
+	font-size: 14px;
+}

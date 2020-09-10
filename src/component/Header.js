@@ -39,7 +39,7 @@ export default function  ButtonAppBar() {
 
 
     return (
-        <div className={classes.root}>
+        <div className="w-75">
             <AppBar color="primary" position="static">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">

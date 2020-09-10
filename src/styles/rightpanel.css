@@ -1,0 +1,18 @@
+.userInfo{
+	height:8%;
+	font-family: 'Press Start 2P', cursive;
+	font-size:12px;
+	color: white;
+	background-color: #070739;
+}
+
+.msgHistory{
+	height:82%;
+	background-image: url("../images/chatBackground.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.msgForm{
+	height:10%;
+}

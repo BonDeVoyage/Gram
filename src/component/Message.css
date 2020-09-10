@@ -1,8 +1,0 @@
-.msg {
-    display: flex;
-    flex-direction: row;
-}
-
-.time {
-    align-self: end;
-}
