@@ -9,10 +9,12 @@ namespace messengerV2.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int ReceiverId { get; set; }
+        [ForeignKey("Receiver")]
+        public int? ReceiverId { get; set; }
         [ForeignKey("User")]
         public int? UserId { get; set; }
         public User User { get; set; }
+        public User Receiver { get; set; }
         public ICollection<Message> Messages { get; set; }
         public Conversation()
         {

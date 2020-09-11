@@ -23,11 +23,12 @@ namespace messengerV2.Controllers
             if (conversation == null)
             {
                 conversation = new Conversation();
-                conversation.ReceiverId = UserId;
 
                 var username = User.Identity.Name;
                 conversation.User = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-                
+
+                conversation.Receiver = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+
                 _context.Conversations.Add(conversation);
                 await _context.SaveChangesAsync();
             }
@@ -38,8 +39,7 @@ namespace messengerV2.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Show(int id)
         {
-            await _context.Conversations.Include(c => c.User).ToListAsync(); 
-            return Json(await _context.Conversations.FirstOrDefaultAsync(c => c.Id == id));
+            return Json(await _context.Conversations.Include(c=> c.User).Include(c=> c.Receiver).FirstOrDefaultAsync(c => c.Id == id));
         }
 
     }

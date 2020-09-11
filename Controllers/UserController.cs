@@ -76,7 +76,6 @@ namespace messengerV2.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Authorize]
         public async Task<IActionResult> GetCurrentUser()
         {
             var username = User.Identity.Name;
@@ -85,13 +84,24 @@ namespace messengerV2.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Authorize]
         public async Task<IActionResult> GetCurrentUserConversations()
         {
-            List<User> list = _context.Users.Include(u => u.Conversations).ToList();
-            var username = User.Identity.Name; 
-            return Json(list.FirstOrDefault(u => u.Username == username).Conversations.ToList());
-
+            var username = User.Identity.Name;
+            if (username != null)
+            {
+                var currentUser = await _context.Users.
+                     Include(u => u.IncomingConversations).ThenInclude(c => c.Messages).
+                     Include(u => u.IncomingConversations).ThenInclude(c => c.User).
+                     Include(u => u.IncomingConversations).ThenInclude(c => c.Receiver).
+                     Include(u => u.Conversations).ThenInclude(c => c.Messages).
+                     Include(u => u.Conversations).ThenInclude(c => c.User).
+                     Include(u => u.Conversations).ThenInclude(c => c.Receiver).
+                     FirstOrDefaultAsync(u => u.Username == username);
+                List<Conversation> list = currentUser.Conversations.ToList();
+                list.AddRange(currentUser.IncomingConversations.ToList());
+                return Json(list);
+            }
+            return Json("");
         }
     }
 }

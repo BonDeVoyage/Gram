@@ -24,7 +24,9 @@ namespace messengerV2
         public IConfiguration Config { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR();
+            services.AddSignalR().AddNewtonsoftJsonProtocol(opt => {
+                opt.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
             services.AddDbContext<AppContext>(options => options.UseSqlServer(Config.GetConnectionString("DefaultConnection")));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
@@ -54,7 +56,7 @@ namespace messengerV2
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ConversationHub>("api/conversation/send");
+                endpoints.MapHub<ConversationHub>("/api/conversation/msgSent");
                 endpoints.MapControllers();
             });
             

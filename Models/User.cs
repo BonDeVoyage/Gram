@@ -22,9 +22,11 @@ namespace messengerV2.Models
             set { Password = value; }   
         }
         public ICollection<Conversation> Conversations { get; set; }
+        public ICollection<Conversation> IncomingConversations { get; set;}
         public User()
         {
             Conversations = new List<Conversation>();
+            IncomingConversations = new List<Conversation>();
         }
     }
 }
