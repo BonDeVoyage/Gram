@@ -36,6 +36,12 @@ class UserService {
 			withCredentials: true
         })
     }
+	
+	logout(){
+        return axios.get(API_USER_URL + "/logout",{
+			withCredentials: true
+		});
+    }
 }
 
 

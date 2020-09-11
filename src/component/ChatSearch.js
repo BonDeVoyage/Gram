@@ -4,6 +4,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
+import "../styles/ChatSearch.css"
+
 export default class ChatSearch extends Component {
 
 
@@ -25,7 +27,7 @@ export default class ChatSearch extends Component {
     render() {
         return (
 
-            <FormControl className="w-100">
+            <FormControl className="w-100 searchForm">
                 <Input
                     id="input-with-icon-adornment"
                     startAdornment={

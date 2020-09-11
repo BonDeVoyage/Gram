@@ -2,14 +2,27 @@ import React, {Component} from 'react';
 import ChatSearch from "./ChatSearch";
 import Conversetions from "./Conversetions";
 import ConversetionPreview from "./ConversetionPreview";
+import "../styles/leftpanel.css";
 
 class LeftPanel extends Component {
+	constructor(props)
+	{
+		super(props);
+	}
+	
+	updateConversation = (conv) =>
+	{
+		console.log(this.props.conversationUpdater);
+		this.props.conversationUpdater(conv);
+	}
+	
     render() {
-        let names = ["Marko","Ostap","Maksym"]
         return (
-            <div className=" flex-column align-items-start mt-3 w-25">
+            <div className="flex-column leftPanel h-100 w-25">
                 <ChatSearch/>
-                <Conversetions conversations = {this.props.conversations}/>
+
+                <Conversetions conversationUpdate={this.updateConversation}/>
+
             </div>
         );
     }

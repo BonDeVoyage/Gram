@@ -2,9 +2,23 @@ import React, {Component} from 'react';
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
 import UserService from "../service/UserService"
-import './Main.css'
+import Header from "./Header"
+import '../styles/Main.css'
 
 class Main extends Component {
+	constructor(props)
+	{
+		super(props);
+		this.state = {
+			renderRightPanel:false,
+			currentConversation:null
+		};
+	}
+	
+	updaterConversation = (conv) =>
+	{
+		this.setState({currentConversation:conv,renderRightPanel:true});	
+	}
 	
 	IsLoggedIn = () => 
 	{
@@ -21,9 +35,17 @@ class Main extends Component {
     render() {
 		let userInfo = this.props.location.state.userInfo
         return (
-			<div className="main">
-                <LeftPanel userInfo = {userInfo.conversations}/>
-                {/*<RightPanel/>*/}
+
+			<div className="container-fluid flex-column h-100 p-0 main">
+				<div className="row m-0 justify-content-center">
+					<Header history={this.props.history} />
+				</div>
+				<div className="row m-0 h-100 justify-content-center">
+					<div className="w-75 d-flex h-100">
+						<LeftPanel conversationUpdater={this.updaterConversation}/>
+						{ this.state.renderRightPanel && <RightPanel currentConversation={this.state.currentConversation}/>}
+					</div>
+				</div>
             </div>
         );
     }

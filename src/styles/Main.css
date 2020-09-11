@@ -1,0 +1,7 @@
+.main {
+    display: flex;
+    flex-direction: row;
+	background-image: url("../images/indexBackground.gif");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
