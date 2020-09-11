@@ -3,7 +3,18 @@
     margin: 0;
     display: flex;
     flex-direction: row;
-    /*justify-content: space-between;*/
+	font-family: 'Press Start 2P', cursive;
+	font-size:9px;
+}
+
+h5{
+	text-overflow: ellipsis;
+}
+
+.avatar
+{
+	background-color: green !important;
+	color: white !important;
 }
 
 .leftPreview {
@@ -19,8 +30,9 @@
 }
 
 .messageDetail {
-    display: flex;
-    flex-direction: column;
-    align-self: end;
     margin-left: auto;
+}
+
+.lastMsg{
+	color:blue;
 }

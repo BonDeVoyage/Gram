@@ -1,6 +1,7 @@
 .MessageInput form{
 	background-color:#070739;
 }
+
 .MessageInput textarea{
 	resize: none;
 	padding: 8px 9px;
@@ -10,16 +11,20 @@
 	border-style: solid;
 	border-width: 1px;
 	border-color:black;
-
 }
+
+textarea[type="text"]
+{
+	font-family: 'Press Start 2P', cursive;
+}
+
 textarea[type="text"]:focus, .uneditable-input:focus, .form-control:focus
 {
 	border-color: none;
 	box-shadow: none;
 	outline: none;
-	font-family: 'Press Start 2P', cursive;
-
 }
+
 .MessageInput button{
 	width: 10%;
 	height:100%;
