@@ -17,7 +17,7 @@ class MessageHistory extends Component {
 			
 	componentDidUpdate(prevProps)
 	{
-		if(this.props.conversation['id'] !== prevProps.conversation['id'])
+		if(this.props.conversation['id'] !== prevProps.conversation['id'] || this.props.conversation['messages'].length !== prevProps.conversation['messages'].length)
 		{
 			this.setState({messages:this.props.conversation['messages']});
 		}

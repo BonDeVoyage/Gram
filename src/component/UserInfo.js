@@ -26,7 +26,7 @@ class UserInfo extends Component {
 	{
 		UserService.getCurrentUser().then((result)=>
 		{
-			let id = result.data['id'] == this.props.conversation['userId'] ? this.props.conversation['receiverId'] : this.props.conversation['userId'];
+			let id = result.data['id'] === this.props.conversation['userId'] ? this.props.conversation['receiverId'] : this.props.conversation['userId'];
 			UserService.getUserById(id).then((res) => 
 			{
 				this.setState({user : res.data});
