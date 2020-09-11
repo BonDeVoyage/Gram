@@ -42,6 +42,15 @@ class UserService {
 			withCredentials: true
 		});
     }
+
+    getUserByUsername(username){
+        return axios.post(API_USER_URL + "/getUserByUsername",username,{
+            headers: {
+                'Content-type': 'application/json'
+            },
+            withCredentials: true
+        });
+    }
 }
 
 

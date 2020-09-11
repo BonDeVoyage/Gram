@@ -4,6 +4,12 @@ import UserService from "../service/UserService"
 
 export default class Conversetions extends Component {
 
+	constructor(props)
+	{
+		super(props);
+		this.state = {conversations: []};
+	}
+
 
 	componentDidMount()
 		{
@@ -16,6 +22,7 @@ export default class Conversetions extends Component {
     render(){
         return (
             <div className="list-group h-100">
+
 				{this.state.conversations.length && this.state.conversations.map((conv)=>
 					{
 						return(

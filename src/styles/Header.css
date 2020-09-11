@@ -6,3 +6,9 @@
 	font-family: 'Press Start 2P', cursive;
 	margin-left:auto;
 }
+
+.bar_items {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

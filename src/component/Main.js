@@ -33,7 +33,6 @@ class Main extends Component {
 	}
 	
     render() {
-		let userInfo = this.props.location.state.userInfo
         return (
 
 			<div className="container-fluid flex-column h-100 p-0 main">
