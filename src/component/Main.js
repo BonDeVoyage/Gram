@@ -19,9 +19,10 @@ class Main extends Component {
 	}
 	
     render() {
+		let userInfo = this.props.location.state.userInfo
         return (
 			<div className="main">
-                <LeftPanel/>
+                <LeftPanel userInfo = {userInfo.conversations}/>
                 {/*<RightPanel/>*/}
             </div>
         );

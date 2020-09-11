@@ -39,7 +39,10 @@ export default class Login extends Component {
             password: this.state.password
         }
         UserService.loginUser(user).then(res => {
-			this.props.history.push("/");
+            this.props.history.push({
+                pathname: '/',
+                state: { userInfo: res.data }
+            })
 		});
 					
     }

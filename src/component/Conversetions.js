@@ -3,6 +3,7 @@ import ConversetionPreview from "./ConversetionPreview";
 
 export default class Conversetions extends Component {
     render() {
+        console.log(this.props.conversations)
         return (
             <div className="list-group">
 

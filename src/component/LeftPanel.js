@@ -9,7 +9,7 @@ class LeftPanel extends Component {
         return (
             <div className=" flex-column align-items-start mt-3 w-25">
                 <ChatSearch/>
-                <Conversetions/>
+                <Conversetions conversations = {this.props.conversations}/>
             </div>
         );
     }
