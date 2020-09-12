@@ -99,7 +99,8 @@ namespace messengerV2.Controllers
                      FirstOrDefaultAsync(u => u.Username == username);
                 List<Conversation> list = currentUser.Conversations.ToList();
                 list.AddRange(currentUser.IncomingConversations.ToList());
-                return Json(list);
+                list.RemoveAll(c => c.Messages.Count == 0);
+                return Json(list.OrderByDescending(c => c.Messages.Last().Created_At));
             }
             return Json("");
         }

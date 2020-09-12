@@ -35,9 +35,8 @@ namespace messengerV2.Controllers
             _context.Messages.Add(msg);
         
             await _context.SaveChangesAsync();
-
-            await _hubContext.Clients.User(current.Receiver.Username).SendAsync("ReceiveMsg", current);
-            await _hubContext.Clients.User(current.User.Username).SendAsync("ReceiveMsg", current);
+            
+            await _hubContext.Clients.Users(current.Receiver.Username, current.User.Username).SendAsync("ReceiveMsg", current);
 
         }
         [HttpGet]
@@ -50,4 +49,13 @@ namespace messengerV2.Controllers
     }
 
     public class ConversationHub : Hub {}
+
+    public class CustomUserIdProvider : IUserIdProvider
+    { 
+        public virtual string GetUserId(HubConnectionContext connection)
+        {
+            return connection.User?.Identity.Name;
+        }
+    }
+
 }

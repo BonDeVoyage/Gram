@@ -27,6 +27,7 @@ namespace messengerV2
             services.AddSignalR().AddNewtonsoftJsonProtocol(opt => {
                 opt.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
             services.AddDbContext<AppContext>(options => options.UseSqlServer(Config.GetConnectionString("DefaultConnection")));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
@@ -59,7 +60,7 @@ namespace messengerV2
                 endpoints.MapHub<ConversationHub>("/api/conversation/msgSent");
                 endpoints.MapControllers();
             });
-            
+      
         }
     }
 }
