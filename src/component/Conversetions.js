@@ -9,7 +9,7 @@ export default class Conversetions extends Component {
 		super(props);
 		this.state = {
 			conversations: [],
-			hubConnection :	[]	
+			hubConnection :	[]
 		};
 			
 	}
@@ -29,8 +29,11 @@ export default class Conversetions extends Component {
 			});
 			
 			this.state.hubConnection.on("ReceiveMsg", (newConversation) => {
-				this.setState({conversation:newConversation});
 				this.props.conversationUpdate(newConversation);
+				
+				let Conversations = this.state.conversations.filter(item => item.id !== newConversation.id);
+				Conversations.unshift(newConversation);	
+
 			});	
 			
 			this.state.hubConnection.start();
@@ -44,9 +47,9 @@ export default class Conversetions extends Component {
 				{this.state.conversations.length && this.state.conversations.map((conv)=>
 					{
 						return(
-							<a href={"conversation/" + conv["id"]} onClick={(e)=>{e.preventDefault(); this.props.conversationUpdate(conv)}} className=" list-group-item list-group-item-action ">
-								<ConversetionPreview key={conv['id']} conversation={conv} />
-							</a>
+								<a href={"conversation/" + conv["id"]} onClick={(e)=>{e.preventDefault(); this.props.conversationUpdate(conv)}} className=" list-group-item list-group-item-action ">
+									<ConversetionPreview key={conv['id']} conversation={conv} />
+								</a>
 						);
 					})
 				}
