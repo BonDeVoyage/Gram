@@ -30,26 +30,20 @@ export default function SearchConversationDialog(props) {
     let [user,setUser] = React.useState(null);
     const { onClose, selectedValue, open } = props;
 
-    const handleClose = (selectedValue) => {
-        this.state.onClose(selectedValue);
-    };
-
 
     const handleListItemClick = (value) => {
-        this.state.onClose(value);
+        console.log("WTF?")
+        onClose(value)
     };
 
 
     const handleUsernameChange = (e)  => {
-        setUsername(e.target.value)
         let user = {
-            username: username
+            username: e.target.value
         }
-        console.log(e.targe.value)
+        console.log(e.target.value)
         UserService.getUserByUsername(user).then(res => {
             setUser(res.data)
-            console.log("res - data")
-            console.log(res.data)
             if(res.data.username === undefined){
                 setUser(null)
             }
@@ -59,7 +53,7 @@ export default function SearchConversationDialog(props) {
 
 
     return (
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+        <Dialog className="p-2" aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle className="ml-auto" id="simple-dialog-title">Search User</DialogTitle>
             <FormControl >
                 <InputLabel htmlFor="input-with-icon-adornment">Username</InputLabel>
@@ -75,7 +69,7 @@ export default function SearchConversationDialog(props) {
             </FormControl>
             <List>
                 { user !== null ?
-                    <ListItem button>
+                    <ListItem button onClick={() => handleListItemClick(user)}>
                         <ListItemAvatar>
                             <Avatar src={user.avatar}>
                             </Avatar>

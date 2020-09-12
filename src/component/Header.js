@@ -10,6 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import UserService from "../service/UserService";
 import SearchConversationDialog from "./SearchConversationDialog";
 import "../styles/Header.css"
+import ConversationService from "../service/ConversationService";
 
 export default class Header extends Component {
 
@@ -18,7 +19,7 @@ export default class Header extends Component {
 		super(props)
 		this.state = {
 			dialogOpen: false,
-
+			selectedUser: null
 		}
 		this.handleClose = this.handleClose.bind(this)
 		this.onAddClick = this.onAddClick.bind(this)
@@ -29,8 +30,19 @@ export default class Header extends Component {
 		this.setState({dialogOpen: true})
 	}
 
-	handleClose(){
-		this.setState({ dialogOpen: false })
+	handleClose(user){
+		console.log("header hc")
+		this.setState({
+			dialogOpen: false,
+			selectedUser: user
+		})
+		// console.log(user)
+		if(user !== null){
+			ConversationService.createConversation(user.id).then(r => {
+				console.log("Create conversation");
+				console.log(user.id);
+			})
+		}
 	}
 
 	onLogoutClick = () => 
