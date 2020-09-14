@@ -9,7 +9,8 @@ export default class Conversetions extends Component {
 		super(props);
 		this.state = {
 			conversations: [],
-			hubConnection :	[]
+			hubConnection :	[],
+			lastSelectedConversation: ""
 		};
 			
 	}
@@ -29,16 +30,20 @@ export default class Conversetions extends Component {
 			});
 			
 			this.state.hubConnection.on("ReceiveMsg", (newConversation) => {
-				this.props.conversationUpdate(newConversation);
-				
+				if(this.state.lastSelectedConversation == newConversation.id) this.props.conversationUpdate(newConversation);
 				let Conversations = this.state.conversations.filter(item => item.id !== newConversation.id);
 				Conversations.unshift(newConversation);	
-
+				this.setState({conversations: Conversations});
 			});	
 			
 			this.state.hubConnection.start();
 			
 		});	
+	}
+	
+	onConversationClick = (conv) =>
+	{
+		this.setState({lastSelectedConversation:conv.id});
 	}
 
 	render() {
@@ -47,7 +52,7 @@ export default class Conversetions extends Component {
 				{this.state.conversations.length && this.state.conversations.map((conv)=>
 					{
 						return(
-								<a href={"conversation/" + conv["id"]} onClick={(e)=>{e.preventDefault(); this.props.conversationUpdate(conv)}} className=" list-group-item list-group-item-action ">
+								<a href={"conversation/" + conv["id"]} onClick={(e)=>{e.preventDefault(); this.props.conversationUpdate(conv); this.onConversationClick(conv)}} className=" list-group-item list-group-item-action ">
 									<ConversetionPreview key={conv['id']} conversation={conv} />
 								</a>
 						);
