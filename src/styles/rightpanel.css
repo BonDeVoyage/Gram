@@ -11,8 +11,8 @@
 	background-image: url("../images/chatBackground.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
+	overflow-y: auto;
 }
-
 .msgForm{
 	height:10%;
 }

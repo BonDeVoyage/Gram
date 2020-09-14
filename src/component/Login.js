@@ -8,7 +8,8 @@ export default class Login extends Component {
         super(props);
         this.state = {
             username: " ",
-            password: " "
+            password: " ",
+			errors: ""
         }
 
         this.onPasswordChangeHandler = this.onPasswordChangeHandler.bind(this);
@@ -31,17 +32,21 @@ export default class Login extends Component {
         console.log("username change - " + this.state.username);
     }
 
-
     onLoginUserClick(e){
 		e.preventDefault();
         let user = {
             username: this.state.username,
             password: this.state.password
         }
-        UserService.loginUser(user).then(res => {
-			this.props.history.push("/");
+			
+		UserService.loginUser(user).then(res => {
+			if(res.data.id === undefined)
+			{
+				this.setState({errors: "Username or password is wrong"});
+			}
+			else this.props.history.push("/");
 		});
-					
+		
     }
 
     render() {
@@ -59,17 +64,25 @@ export default class Login extends Component {
                                         className="w-75"
                                         name="username"
                                         onChange={this.onUsernameChangeHandler}
-                                    />
+										value={this.username}
+									/>
                                 </div>
                                 <div className="form-group">
                                   <label>Password:</label>
                                     <br/>
                                     <input
+										type="password"
                                         className="w-75"
                                         name="password"
                                         onChange={this.onPasswordChangeHandler}
+										value={this.password}
                                     />
                                 </div>
+							
+								<div className="form-group errors">
+									<p className="m-0 mb-1">{this.state.errors}</p>
+								</div>
+								
 			                    <div className=" row h-100  justify-content-center align-items-center">
 									<button type="submit" className="btn">Login</button>
 								</div>
