@@ -31,7 +31,10 @@ class Main extends Component {
 	{
 		this.IsLoggedIn();
 	}
-	
+
+
+
+
     render() {
         return (
 

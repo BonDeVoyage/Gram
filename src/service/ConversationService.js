@@ -6,7 +6,7 @@ class ConversationService {
 
     msgSend(id,msgtext){
 		const msg = {text:msgtext};
-        return axios.post(API_CONVERSATION_URL + "/" + id + "/send",JSON.stringify(msg),{
+        return axios.post(API_CONVERSATION_URL + "/" + id + "/send",msg,{
             headers: {
                 'Content-type': 'application/json'
             },

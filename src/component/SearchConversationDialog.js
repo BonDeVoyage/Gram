@@ -1,6 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -9,18 +7,12 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
-import Typography from '@material-ui/core/Typography';
-import { blue } from '@material-ui/core/colors';
 import UserService from "../service/UserService";
 
 
@@ -28,54 +20,91 @@ export default function SearchConversationDialog(props) {
 
     let [username,setUsername] = React.useState(" ");
     let [user,setUser] = React.useState(null);
-    const { onClose, selectedValue, open } = props;
+    const { onClose, selectedValue, open, onMessageSent } = props;
+    let [message,setMessage] = React.useState(" ");
 
 
     const handleListItemClick = (value) => {
-        console.log("WTF?")
         onClose(value)
+        setUser(null)
+        console.log("After return user is")
+        console.log(user);
     };
 
 
     const handleUsernameChange = (e)  => {
-        let user = {
+        let l_user = {
             username: e.target.value
         }
         console.log(e.target.value)
-        UserService.getUserByUsername(user).then(res => {
-            setUser(res.data)
+        UserService.getUserByUsername(l_user).then(res => {
             if(res.data.username === undefined){
                 setUser(null)
+                console.log("inside if");
             }
+            setUser(res.data)
         })
-
     }
 
 
+    function onMessageChange(e) {
+        console.log(e.target.value)
+        setMessage(e.target.value)
+    }
+
+    function onMessageSend() {
+        console.log("oms");
+        onMessageSent(message)
+    }
+
+
+    let createConversationItem =
+        (
+            <div>
+        <FormControl >
+        <InputLabel htmlFor="input-with-icon-adornment">Username</InputLabel>
+        <Input
+            id="input-with-icon-adornment"
+            startAdornment={
+                <InputAdornment position="start">
+                    <AccountCircle />
+                </InputAdornment>
+            }
+            onChange={handleUsernameChange}
+        />
+    </FormControl>
+                {
+                    user !== null ? (
+                        <ListItem button onClick={() => handleListItemClick(user)}>
+                            <ListItemAvatar>
+                                <Avatar src={user.avatar}>
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={user.username}/>
+                        </ListItem>
+                    ) : <p>No such user</p>
+                }
+            </div>
+)
+
+    let sendMessageItem =
+        (
+            <ListItem>
+        <TextField onChange={onMessageChange}/>
+        <Button onClick={onMessageSend}>Send</Button>
+    </ListItem>
+        )
+
     return (
         <Dialog className="p-2" aria-labelledby="simple-dialog-title" open={open}>
-            <DialogTitle className="ml-auto" id="simple-dialog-title">Search User</DialogTitle>
-            <FormControl >
-                <InputLabel htmlFor="input-with-icon-adornment">Username</InputLabel>
-                <Input
-                    id="input-with-icon-adornment"
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    }
-                    onChange={handleUsernameChange}
-                />
-            </FormControl>
+            <DialogTitle className="ml-auto" id="simple-dialog-title">
+                 {
+                     selectedValue === null ? "Search User" : "First message"
+                 }
+            </DialogTitle>
             <List>
-                { user !== null ?
-                    <ListItem button onClick={() => handleListItemClick(user)}>
-                        <ListItemAvatar>
-                            <Avatar src={user.avatar}>
-                            </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText primary={user.username}/>
-                    </ListItem> : <p>No users with such username</p>
+                {
+                    selectedValue === null ? createConversationItem : sendMessageItem
                 }
             </List>
         </Dialog>

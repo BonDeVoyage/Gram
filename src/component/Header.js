@@ -19,11 +19,14 @@ export default class Header extends Component {
 		super(props)
 		this.state = {
 			dialogOpen: false,
-			selectedUser: null
+			selectedUser: null,
+			newConversationId: null
 		}
 		this.handleClose = this.handleClose.bind(this)
 		this.onAddClick = this.onAddClick.bind(this)
+		this.handleMessageSent = this.handleMessageSent.bind(this);
 	}
+
 
 	onAddClick(){
 		console.log("On add click")
@@ -31,19 +34,31 @@ export default class Header extends Component {
 	}
 
 	handleClose(user){
-		console.log("header hc")
 		this.setState({
-			dialogOpen: false,
 			selectedUser: user
 		})
-		// console.log(user)
+		console.log(user);
 		if(user !== null){
 			ConversationService.createConversation(user.id).then(r => {
+				let newConversation = r.data;
 				console.log("Create conversation");
 				console.log(user.id);
+				this.setState({newConversationId: newConversation.id})
 			})
 		}
+		this.forceUpdate();
 	}
+
+	handleMessageSent(message){
+		console.log("header ms")
+		this.setState({ dialogOpen : false })
+		ConversationService.msgSend(this.state.newConversationId,message).then(r => {
+			console.log("sended mes");
+			console.log(r.data)
+		})
+	}
+
+
 
 	onLogoutClick = () => 
 	{
@@ -68,7 +83,12 @@ export default class Header extends Component {
 								<AddIcon />
 							</Fab>
 						</Tooltip>
-						<SearchConversationDialog  open={this.state.dialogOpen} onClose={this.handleClose} />
+						<SearchConversationDialog
+							open={this.state.dialogOpen}
+							onClose={this.handleClose}
+							selectedValue={this.state.selectedUser}
+							onMessageSent={this.handleMessageSent}
+						/>
 						<Link onClick={this.onLogoutClick} className="lr bar" >Logout</Link>
 					</Toolbar>
 				</AppBar>

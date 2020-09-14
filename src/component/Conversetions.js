@@ -7,16 +7,10 @@ export default class Conversetions extends Component {
 	constructor(props)
 	{
 		super(props);
-		this.state = {conversations: []};
+        this.state = {
+            conversations: []
+        }
 	}
-
-
-	componentDidMount()
-		{
-			UserService.getCurrentUserConversations().then((res) => {
-				this.setState({conversations: res.data});
-			});
-		}
 
 
     render(){
