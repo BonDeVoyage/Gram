@@ -28,7 +28,7 @@ namespace messengerV2.Controllers
         {
             User _user = await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
 
-            if (user != null && BC.Verify(user.Password, _user.Password))
+            if (_user != null && BC.Verify(user.Password, _user.Password))
             {
                 await Authenticate(user.Username);
                 return Json(_user);
