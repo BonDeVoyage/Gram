@@ -1,9 +1,4 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -11,6 +6,11 @@ import UserService from "../service/UserService";
 import SearchConversationDialog from "./SearchConversationDialog";
 import "../styles/Header.css"
 import ConversationService from "../service/ConversationService";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from "@material-ui/core/IconButton";
+import {Link} from "react-router-dom";
 
 export default class Header extends Component {
 
@@ -57,8 +57,6 @@ export default class Header extends Component {
 			console.log(r.data)
 		})
 	}
-
-
 
 	onLogoutClick = () => 
 	{

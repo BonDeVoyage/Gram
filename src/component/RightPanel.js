@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import MessageHistory from "./MessageHistory";
-import {Message} from "@material-ui/icons";
 import MessageInput from "./MessageInput";
 import UserInfo from "./UserInfo";
 import "../styles/rightpanel.css"
@@ -16,7 +15,7 @@ class RightPanel extends Component {
 		
 	componentDidUpdate(prevProps)
 	{
-		if(this.props.currentConversation['id'] !== prevProps.currentConversation['id'])
+		if(this.props.currentConversation['id'] !== prevProps.currentConversation['id'] || this.props.currentConversation['messages'].length !== prevProps.currentConversation['messages'].length)
 		{
 			this.setState({conversation:this.props.currentConversation});
 		}

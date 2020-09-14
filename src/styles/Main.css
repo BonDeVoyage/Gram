@@ -4,4 +4,15 @@
 	background-image: url("../images/indexBackground.gif");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	overflow: hidden;
+}
+
+.header
+{
+	height:6.6%;
+}
+
+.content
+{
+	height:93.4%;
 }

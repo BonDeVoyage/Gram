@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Register from "./component/Register";
 import Login from "./component/Login";
-import LeftPanel from "./component/LeftPanel";
 import Main from "./component/Main";
 
 function App() {

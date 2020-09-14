@@ -39,10 +39,10 @@ class Main extends Component {
         return (
 
 			<div className="container-fluid flex-column h-100 p-0 main">
-				<div className="row m-0 justify-content-center">
+				<div className="row m-0 header justify-content-center">
 					<Header history={this.props.history} />
 				</div>
-				<div className="row m-0 h-100 justify-content-center">
+				<div className="row m-0 content justify-content-center">
 					<div className="w-75 d-flex h-100">
 						<LeftPanel conversationUpdater={this.updaterConversation}/>
 						{ this.state.renderRightPanel && <RightPanel currentConversation={this.state.currentConversation}/>}

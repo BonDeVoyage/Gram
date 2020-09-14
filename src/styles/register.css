@@ -67,3 +67,10 @@
 	color:blue;
 	font-size: 10px;	
 }
+
+.errors{
+	font-family: 'Press Start 2P', cursive;
+	color:red;
+	font-size:10px;
+	text-align:justify;
+}

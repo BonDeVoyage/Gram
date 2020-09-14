@@ -11,7 +11,8 @@ export default class Register extends Component {
             username: " ",
             name: " ",
             surname: " ",
-            password: " "
+            password: " ",
+			errors: []
         }
 
 
@@ -51,6 +52,23 @@ export default class Register extends Component {
         })
     }
 	
+	validateForm = (user) => {
+		let validator = new RegExp('^(?=.{3,9}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+		let error = [];
+		
+		if(!(validator.test(user.username) && validator.test(user.password) && validator.test(user.name) && validator.test(user.surname)))
+		{
+			error.push("Oops, but your username/name/surname/password might be incorrect!");
+			error.push("Please, check your input to meet such conditions:");
+			error.push("	- U/N/S/P must contain (3-9) characters ");
+			error.push("	- U/N/S/P cant start/end with _ or . character ");
+			error.push("	- U/N/S/P allowed characters: a-z(A-Z) or numbers ");
+			this.setState({errors: error});
+			return false;
+		}
+		return true;
+	}
+	
     onSaveUserClick(e){
 		e.preventDefault();
 		if(!this.state.avatar.length)	this.state.avatar.push(new Blob())
@@ -65,9 +83,13 @@ export default class Register extends Component {
 				password: this.state.password,
 				avatar: reader.result
 			}
-			UserService.createUser(user).then(r => {
-				this.props.history.push("/login");
-			});
+			
+			if(1)
+			{
+				UserService.createUser(user).then(r => {
+					this.props.history.push("/login");
+				});
+			}
 		}.bind(this);
     }
 
@@ -85,6 +107,7 @@ export default class Register extends Component {
 									className="w-75 p-2"
 									name="username"
 									onChange={this.onUsernameChangeHandler}
+									value={this.username}
 								/>
 							</div>
 
@@ -95,6 +118,7 @@ export default class Register extends Component {
 									className="w-75 p-2"
 									name="Name"
 									onChange={this.onNameChangeHandler}
+									value={this.name}
 								/>
 							</div>
 
@@ -105,6 +129,7 @@ export default class Register extends Component {
 									className="w-75 p-2"
 									name="Surname"
 									onChange={this.onSurnameChangeHandler}
+									value={this.surname}
 								/>
 							</div>
 
@@ -114,9 +139,20 @@ export default class Register extends Component {
 								<input
 									className="w-75 p-2"
 									name="password"
+									type="password"
 									onChange={this.onPasswordChangeHandler}
 								/>
 							</div>
+							
+							
+							<div className="form-group errors m-3">
+								{
+									this.state.errors.map((item) => {
+										return(<p className="m-0 mb-1">{item}</p>);
+									})
+								}
+							</div>
+
 							
 							<div className="form-group m-0">
 								<ImageUploader

@@ -1,7 +1,5 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Badge from '@material-ui/core/Badge';
-import MailIcon from '@material-ui/icons/Mail';
 import UserService from "../service/UserService"
 import "../styles/ConversetionPreview.css"
 
@@ -29,7 +27,7 @@ class ConversetionPreview extends React.Component {
 	{
 		UserService.getCurrentUser().then((result)=>
 		{
-			let id = result.data['id'] == this.props.conversation['userId'] ? this.props.conversation['receiverId'] : this.props.conversation['userId'];
+			let id = result.data['id'] === this.props.conversation['userId'] ? this.props.conversation['receiverId'] : this.props.conversation['userId'];
 			UserService.getUserById(id).then((res) => 
 			{
 				let messages = this.props.conversation['messages'];

@@ -29,13 +29,22 @@
   text-align: left;
   width: 74%;
 }
+
 .LoginForm button{
   font-family: 'Press Start 2P', cursive;
   background-color: #7289da;
   color:white;
 }
+
 .signIn{
   font-family: 'Press Start 2P', cursive;
   color:blue;
   font-size: 10px;
+}
+
+.errors{
+	font-family: 'Press Start 2P', cursive;
+	color:red;
+	font-size:10px;
+	text-align:justify;
 }
