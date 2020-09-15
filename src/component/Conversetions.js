@@ -50,14 +50,14 @@ export default class Conversetions extends Component {
 	}
 
 	render() {
+		console.log(this.state.conversations);
         return (
             <div className="list-group h-100">
-
 				{this.state.conversations.length && this.state.conversations.map((conv)=>
 					{
 						return(
 								<a href={"conversation/" + conv["id"]} onClick={(e)=>{e.preventDefault(); this.props.conversationUpdate(conv); this.onConversationClick(conv)}} className=" list-group-item list-group-item-action ">
-									<ConversetionPreview key={conv['id']} conversation={conv} />
+									<ConversetionPreview key={conv.messages} conversation={conv} />
 								</a>
 						);
 					})

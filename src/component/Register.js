@@ -84,7 +84,7 @@ export default class Register extends Component {
 				avatar: reader.result
 			}
 			
-			if(1)
+			if(this.validateForm(user))
 			{
 				UserService.createUser(user).then(r => {
 					this.props.history.push("/login");
@@ -145,7 +145,7 @@ export default class Register extends Component {
 							</div>
 							
 							
-							<div className="form-group errors m-3">
+							<div className="form-group errorsReg m-3">
 								{
 									this.state.errors.map((item) => {
 										return(<p className="m-0 mb-1">{item}</p>);

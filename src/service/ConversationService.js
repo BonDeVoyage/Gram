@@ -15,7 +15,9 @@ class ConversationService {
     }
 
     createConversation(receiverId){
-       return axios.get(API_CONVERSATION_URL + "/create/" + receiverId);
+       return axios.get(API_CONVERSATION_URL + "/create/" + receiverId,{
+			withCredentials: true
+	   });
     }
 }
 
