@@ -19,15 +19,18 @@ namespace messengerV2.Controllers
         [Route("[action]/{UserId:int}")]
         public async Task<IActionResult> Create(int UserId) 
         {
-            Conversation conversation = await _context.Conversations.FirstOrDefaultAsync(c => c.UserId == UserId);
-            if (conversation == null)
+            var username = User.Identity.Name;
+            User usr = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+            Conversation conversation = await _context.Conversations.FirstOrDefaultAsync(c => (c.UserId == UserId && c.ReceiverId == usr.Id)
+                                                                                                || (c.UserId == usr.Id && c.ReceiverId == UserId));
+            if (conversation == null && UserId != usr.Id)
             {
                 conversation = new Conversation();
 
-                var username = User.Identity.Name;
-                conversation.User = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-
+                conversation.User = usr;
                 conversation.Receiver = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+                conversation.hasNewMessages = false;
 
                 _context.Conversations.Add(conversation);
                 await _context.SaveChangesAsync();
@@ -42,5 +45,14 @@ namespace messengerV2.Controllers
             return Json(await _context.Conversations.Include(c=> c.User).Include(c=> c.Receiver).FirstOrDefaultAsync(c => c.Id == id));
         }
 
+        //bad architecture design
+        [HttpPost]
+        [Route("{id:int}/[action]")]
+        public async Task hasSeenNewMessages(int id)
+        {
+            Conversation conv = await _context.Conversations.FirstOrDefaultAsync(c => c.Id == id);
+            conv.hasNewMessages = false;
+            await _context.SaveChangesAsync();
+        }
     }
 }

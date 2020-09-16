@@ -15,6 +15,7 @@ namespace messengerV2.Models
         public int? UserId { get; set; }
         public User User { get; set; }
         public User Receiver { get; set; }
+        public bool hasNewMessages { get; set; }
         public ICollection<Message> Messages { get; set; } 
         public Conversation()
         {

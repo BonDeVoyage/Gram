@@ -104,5 +104,22 @@ namespace messengerV2.Controllers
             }
             return Json("");
         }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> getUserByUsername([FromBody] User user)
+        {
+            User _user = await _context.Users.FirstOrDefaultAsync(u => u.Username == user.Username);
+
+            if (_user != null)
+            {
+                return Json(_user);
+            }
+            else
+            {
+                ModelState.AddModelError("", "No Such User");
+                return Json(ModelState);
+            }
+        }
     }
 }

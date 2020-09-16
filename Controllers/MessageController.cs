@@ -26,6 +26,8 @@ namespace messengerV2.Controllers
                 Include(c => c.User).
                 Include(c => c.Receiver).
                 FirstOrDefaultAsync(c => c.Id == id);
+            
+            current.hasNewMessages = true;
             msg.Conversation = current;
 
             var username = User.Identity.Name;
@@ -35,16 +37,8 @@ namespace messengerV2.Controllers
             _context.Messages.Add(msg);
         
             await _context.SaveChangesAsync();
-            
             await _hubContext.Clients.Users(current.Receiver.Username, current.User.Username).SendAsync("ReceiveMsg", current);
 
-        }
-        [HttpGet]
-        [Route("{MsgId:int}")]
-        public async Task<IActionResult> Get(int MsgId)
-        {
-            List<Message> list = await _context.Messages.Include(msg => msg.Conversation).ThenInclude(msg => msg.User).ToListAsync();
-            return Json(list.FirstOrDefault(m => m.Id == MsgId)); 
         }
     }
 
