@@ -19,6 +19,10 @@ class ConversationService {
 			withCredentials: true
 	   });
     }
+	
+	hasSeenNewMessages(conversationId){
+       return axios.post(API_CONVERSATION_URL + "/" + conversationId + "/hasSeenNewMessages");
+    }
 }
 
 export default new ConversationService();

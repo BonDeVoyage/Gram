@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ConversetionPreview from "./ConversetionPreview";
 import UserService from "../service/UserService"
+import ConversationService from "../service/ConversationService"
 import {  JsonHubProtocol, HubConnectionBuilder} from '@microsoft/signalr';
 
 export default class Conversetions extends Component {
@@ -56,8 +57,19 @@ export default class Conversetions extends Component {
 				{this.state.conversations.length && this.state.conversations.map((conv)=>
 					{
 						return(
-								<a href={"conversation/" + conv["id"]} onClick={(e)=>{e.preventDefault(); this.props.conversationUpdate(conv); this.onConversationClick(conv)}} className=" list-group-item list-group-item-action ">
-									<ConversetionPreview key={conv.messages} conversation={conv} />
+								<a 
+									href={"conversation/" + conv["id"]} 
+									onClick={(e)=>{
+										e.preventDefault(); 
+										this.props.conversationUpdate(conv); 
+										this.onConversationClick(conv); 
+										ConversationService.hasSeenNewMessages(conv.id); 
+										UserService.getCurrentUserConversations().then((res) => {
+											this.setState({conversations:res.data});
+											})
+										}} 
+									className=" list-group-item list-group-item-action ">
+									<ConversetionPreview key={conv.messages && conv.hasNewMessages} conversation={conv} />
 								</a>
 						);
 					})

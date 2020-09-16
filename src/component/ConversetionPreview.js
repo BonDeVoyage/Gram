@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import UserService from "../service/UserService"
+import EmailIcon from '@material-ui/icons/Email'
 import "../styles/ConversetionPreview.css"
 
 class ConversetionPreview extends React.Component {
@@ -64,6 +65,7 @@ class ConversetionPreview extends React.Component {
                     </div>
                     <div className="messageDetail">
                         <small>{this.state.lastMsgTime}</small>
+						{this.props.conversation.hasNewMessages && 	<EmailIcon />}
                     </div>
                 </div>
         );
